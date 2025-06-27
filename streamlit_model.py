@@ -31,7 +31,7 @@ with st.expander("🔍 Por que usar Machine Learning para escolher vinho?", expa
     
 
 # --- SEÇÃO 2: PROCESSO E JUSTIFICATIVAS ---
-with st.expander("⚙️ Como a Mágica Acontece", expanded=False):
+with st.expander("⚙️ Como a Mágica Acontece:", expanded=False):
     st.markdown("""
     ### Pré-Processamento: Limpeza e Padronização  
     1. Variáveis Categóricas:  
