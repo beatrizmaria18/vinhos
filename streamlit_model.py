@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from pycaret.classification import load_model
+from pycaret.classification import load_model, predict_model
 
 # Configuração da página
 st.set_page_config(
@@ -23,7 +23,7 @@ with st.expander("🔍 Por que usar Machine Learning para escolher vinho?", expa
     Nem todo vinho com rótulo bonito é bom! Este modelo prevê se um vinho é bom (nota > 6.5) ou ruim (nota ≤ 6.5) com base em características químicas que você encontra no rótulo!  
 
     ### O Dataset  
-    Usamos dados de vinhos tintos e brancos com:  
+    Foram usados dados de vinhos tintos e brancos com:  
     - 12 variáveis químicas (acidez, açúcar residual, pH, etc.).  
     - Avaliações de especialistas (0 a 10).  
     - Target: `vinho_bom` (0 ou 1, baseado na nota).  
@@ -51,7 +51,7 @@ with st.expander("⚙️ Como a Mágica Acontece:", expanded=False):
 st.header("🎯 Teste Você Mesmo!")
 st.markdown("""
 *Preencha as informações do rótulo abaixo e descubra se o vinho é bom ou um desastre total.*  
-*(Dados fictícios para ilustração)*
+
 """)
 
 with st.sidebar:
@@ -69,7 +69,7 @@ modelo = load_model('extra_trees_wine_quality')
 if st.button("🍾 Verificar Qualidade"):
 
     input_data = pd.DataFrame({
-        'type_white': [1 if type_white == "True" else 0],
+        'type_white': [1 if tipo_vinho == "Branco" else 0],
         'alcohol': [alcool],
         'residual_sugar': [acucar],
         'pH': [ph],
@@ -94,3 +94,4 @@ st.markdown("""
 Feito com ❤️ por Beatriz Trindade.  
 Dados reais, paixão por vinho e um pouco de Python.  
 """)
+
