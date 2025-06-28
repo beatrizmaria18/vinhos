@@ -63,7 +63,7 @@ with st.sidebar:
     acidez = st.slider("Acidez Volátil (g/dm³)", 0.1, 1.0, 0.5, 0.01, help="Cuidado com valores >0.6")
     sulfatos = st.slider("Sulfatos (g/dm³)", 0.3, 1.5, 0.8, 0.1, help="Conservantes: mais = maior longevidade.")
 
-modelo = load_model('modelo_vinho_completo') 
+modelo = load_model('modelo_vinho_completo2') 
 
 # Botão de predição
 if st.button("🍾 Verificar Qualidade"):
