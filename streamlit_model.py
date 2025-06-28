@@ -57,11 +57,11 @@ st.markdown("""
 with st.sidebar:
     st.header("🧾 Detalhes do Rótulo")
     tipo_vinho = st.radio("Tipo do Vinho", ["Tinto", "Branco"], index=0, help="Tinto ou Branco?")
-    alcool = st.slider("Teor Alcoólico (% ABV)", 5.0, 15.0, 12.5, 0.1, help="Quanto maior, mais encorpado!")
+    alcool = st.slider("Teor Alcoólico (% ABV)", 5.0, 25.0, 12.5, 0.1, help="Quanto maior, mais encorpado!")
     acucar = st.slider("Açúcar Residual (g/dm³)", 0.0, 20.0, 2.5, 0.1, help="Seco (<4) ou Doce (>45)?")
-    ph = st.slider("pH (acidez)", 2.8, 4.0, 3.4, 0.1, help="Quanto menor, mais ácido!")
+    ph = st.slider("pH (acidez)", 2.8, 8.0, 3.4, 0.1, help="Quanto menor, mais ácido!")
     acidez = st.slider("Acidez Volátil (g/dm³)", 0.1, 1.0, 0.5, 0.01, help="Cuidado com valores >0.6")
-    sulfatos = st.slider("Sulfatos (g/dm³)", 0.3, 1.5, 0.8, 0.1, help="Conservantes: mais = maior longevidade.")
+    sulfatos = st.slider("Sulfatos (g/dm³)", 0.3, 3.0, 0.8, 0.1, help="Conservantes: mais = maior longevidade.")
 
 # Carregar modelo
 modelo = load_model('modelo_vinho_completo2')
