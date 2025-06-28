@@ -50,7 +50,7 @@ with st.expander("⚙️ Como a Mágica Acontece:", expanded=False):
 # --- SEÇÃO 3: INTERATIVIDADE ---
 st.header("🎯 Teste Você Mesmo!")
 st.markdown("""
-*Preencha as informações do rótulo abaixo e descubra se o vinho é bom ou um desastre total.*  
+*Preencha as informações do rótulo ao lado e descubra se o vinho é bom ou um desastre total.*  
 
 """)
 
