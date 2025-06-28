@@ -79,8 +79,14 @@ if st.button("🍾 Verificar Qualidade"):
     
     # Fazer a predição
     prediction = predict_model(modelo, data=input_data)
-    qualidade = prediction['prediction_label'][0]
-    prob_bom = prediction['prediction_score_1'][0]  # Probabilidade de ser "bom"
+
+qualidade = prediction['prediction_label'].iloc[0]
+
+prob_cols = [col for col in prediction.columns if 'score' in col or 'prob' in col]
+if len(prob_cols) > 0:
+    prob_bom = prediction[prob_cols[0]].iloc[0]
+else:
+    prob_bom = 0.5  # Valor padrão se não encontrar
     
     # Exibir resultado
     if qualidade == 1:
