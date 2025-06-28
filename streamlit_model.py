@@ -63,11 +63,11 @@ with st.sidebar:
     acidez = st.slider("Acidez Volátil (g/dm³)", 0.1, 1.0, 0.5, 0.01, help="Cuidado com valores >0.6")
     sulfatos = st.slider("Sulfatos (g/dm³)", 0.3, 1.5, 0.8, 0.1, help="Conservantes: mais = maior longevidade.")
 
-modelo = load_model('modelo_vinho_completo2') 
+# Carregar modelo
+modelo = load_model('modelo_vinho_completo2')
 
 # Botão de predição
 if st.button("🍾 Verificar Qualidade"):
-
     input_data = pd.DataFrame({
         'type_white': [1 if tipo_vinho == "Branco" else 0],
         'alcohol': [alcool],
@@ -77,23 +77,29 @@ if st.button("🍾 Verificar Qualidade"):
         'sulphates': [sulfatos]
     })
     
-    # Fazer a predição
-    prediction = predict_model(modelo, data=input_data)
-
-qualidade = prediction['prediction_label'].iloc[0]
-
-prob_cols = [col for col in prediction.columns if 'score' in col or 'prob' in col]
-if len(prob_cols) > 0:
-    prob_bom = prediction[prob_cols[0]].iloc[0]
-else:
-    prob_bom = 0.5  # Valor padrão se não encontrar
+    try:
+        # Fazer a predição
+        prediction = predict_model(modelo, data=input_data)
+        
+        # Extrair resultados
+        qualidade = prediction['prediction_label'].iloc[0]
+        
+        # Encontrar coluna de probabilidade automaticamente
+        prob_cols = [col for col in prediction.columns if 'score' in col.lower() or 'prob' in col.lower()]
+        prob_bom = prediction[prob_cols[0]].iloc[0] if prob_cols else 0.5
+        
+        # Exibir resultado
+        if qualidade == 1:
+            st.balloons()
+            st.success(f"**✅ BOM (probabilidade: {prob_bom*100:.1f}%)**\n\nEste vinho tem alta chance de ser aprovado por especialistas!")
+        else:
+            st.error(f"**❌ NÃO É BOM (probabilidade: {(1-prob_bom)*100:.1f}%)**\n\nMelhor deixar na prateleira...")
     
-    # Exibir resultado
-    if qualidade == 1:
-        st.balloons()
-        st.success(f"**✅ BOM (probabilidade: {prob_bom*100:.1f}%)**\n\nEste vinho tem alta chance de ser aprovado por especialistas!")
-    else:
-        st.error(f"**❌ NÃO É BOM (probabilidade: {(1-prob_bom)*100:.1f}%)**\n\nMelhor deixar na prateleira...")
+    except Exception as e:
+        st.error(f"Erro ao fazer a predição: {str(e)}")
+        st.write("Dados enviados:", input_data)
+        st.write("Colunas esperadas:", modelo.feature_names_in_)
+
 # --- RODAPÉ DIVERTIDO ---
 st.markdown("---")
 st.markdown("""
