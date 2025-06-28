@@ -71,9 +71,9 @@ if st.button("🍾 Verificar Qualidade"):
     input_data = pd.DataFrame({
         'type_white': [1 if tipo_vinho == "Branco" else 0],
         'alcohol': [alcool],
-        'residual_sugar': [acucar],
+        'residual sugar': [acucar],
         'pH': [ph],
-        'volatile_acidity': [acidez],
+        'volatile acidity': [acidez],
         'sulphates': [sulfatos]
     })
     
